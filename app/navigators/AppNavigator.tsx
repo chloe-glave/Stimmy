@@ -11,6 +11,7 @@ import Config from "@/config"
 import { useAuth } from "@/context/AuthContext"
 import { ErrorBoundary } from "@/screens/ErrorScreen/ErrorBoundary"
 import { LoginScreen } from "@/screens/LoginScreen"
+import { TogglesScreen } from "@/screens/TogglesScreen"
 import { WelcomeScreen } from "@/screens/WelcomeScreen"
 import { useAppTheme } from "@/theme/context"
 
@@ -43,10 +44,11 @@ const AppStack = () => {
           backgroundColor: colors.background,
         },
       }}
-      initialRouteName="Demo"
+      initialRouteName="Toggles"
     >
       {isAuthenticated ? (
         <>
+          <Stack.Screen name="Toggles" component={TogglesScreen} />
           <Stack.Screen name="Demo" component={DemoNavigator} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
         </>
