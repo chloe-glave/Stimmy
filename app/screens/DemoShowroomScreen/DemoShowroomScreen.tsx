@@ -12,6 +12,7 @@ import {
 import { Link, RouteProp, useRoute } from "@react-navigation/native"
 import { Drawer } from "react-native-drawer-layout"
 
+import { Button } from "@/components/Button"
 import { ListItem } from "@/components/ListItem"
 import { Screen } from "@/components/Screen"
 import { Text } from "@/components/Text"
@@ -117,6 +118,7 @@ const isAndroid = Platform.OS === "android"
 
 export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
   function DemoShowroomScreen(_props) {
+    const { navigation } = _props
     const [open, setOpen] = useState(false)
     const timeout = useRef<ReturnType<typeof setTimeout>>(null)
     const listRef = useRef<SectionList>(null)
@@ -240,6 +242,12 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
         >
           <DrawerIconButton onPress={toggleDrawer} />
 
+          <Button
+            onPress={() => navigation.navigate("Welcome")}
+            text="Go to Welcome"
+            style={themed($button)}
+          />
+
           <SectionListWithKeyboardAwareScrollView
             ref={listRef}
             contentContainerStyle={themed($sectionListContentContainer)}
@@ -324,4 +332,9 @@ const $demoItemDescription: ThemedStyle<TextStyle> = ({ spacing }) => ({
 
 const $demoUseCasesSpacer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   paddingBottom: spacing.xxl,
+})
+
+const $button: ThemedStyle<ViewStyle> = ({ spacing, colors }) => ({
+  marginHorizontal: spacing.lg,
+  backgroundColor: colors.tint,
 })
