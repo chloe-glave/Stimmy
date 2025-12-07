@@ -13,7 +13,12 @@ module.exports = {
   ],
   plugins: ["reactotron", "prettier"],
   rules: {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto", // fix line endings when generating new files
+      },
+    ],
     // typescript-eslint
     "@typescript-eslint/array-type": 0,
     "@typescript-eslint/ban-ts-comment": 0,
