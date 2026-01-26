@@ -41,6 +41,13 @@ const paletteRaw = {
   angry100: " #F2D6CD",
   angry500: " #C03403",
 
+  toggles1: " #EFC7C2",
+  toggles2: " #666A86",
+  toggles3: " #788AA3",
+  toggles4: " #92B6B1",
+  toggles5: " #B2C9AB",
+  toggles6: " #E8DDB5",
+
   overlay20: "rgba(25, 16, 21, 0.2)",
   overlay50: "rgba(25, 16, 21, 0.5)",
 } as const

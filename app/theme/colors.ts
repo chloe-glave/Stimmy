@@ -41,6 +41,13 @@ const paletteRaw = {
   angry100: " #F2D6CD",
   angry500: " #C03403",
 
+  toggles1: " #A78B88", // Darkened from dark mode #EFC7C2
+  toggles2: " #474A5E", // Darkened from dark mode #666A86
+  toggles3: " #546172", // Darkened from dark mode #788AA3
+  toggles4: " #667F7C", // Darkened from dark mode #92B6B1
+  toggles5: " #7D8D78", // Darkened from dark mode #B2C9AB
+  toggles6: " #A29B7F", // Darkened from dark mode #E8DDB5
+
   overlay20: "rgba(25, 16, 21, 0.2)",
   overlay50: "rgba(25, 16, 21, 0.5)",
 } as const
