@@ -14,7 +14,16 @@ import type { ThemedStyle } from "@/theme/types"
 
 interface TogglesScreenProps extends AppStackScreenProps<"Toggles"> {}
 
-// todo: first screen - list of big toggle components switch variant
+// Hex colors from colors.ts (generated on coolors.co)
+const toggleColors = [
+  "toggles1",
+  "toggles2",
+  "toggles3",
+  "toggles4",
+  "toggles5",
+  "toggles6",
+] as const
+
 // todo: make them haptic
 export const TogglesScreen: FC<TogglesScreenProps> = () => {
   const navigation = useNavigation<AppStackScreenProps<"Toggles">["navigation"]>()
@@ -34,23 +43,16 @@ export const TogglesScreen: FC<TogglesScreenProps> = () => {
       />
 
       <View style={themed($centerContent)}>
-        <BigToggle toggleColor="toggles1" />
-        <BigToggle toggleColor="toggles2" />
-        <BigToggle toggleColor="toggles3" />
-        <BigToggle toggleColor="toggles4" />
-        <BigToggle toggleColor="toggles5" />
-        <BigToggle toggleColor="toggles6" />
+        {toggleColors.map((toggleColor) => (
+          <BigToggle key={toggleColor} toggleColor={toggleColor} />
+        ))}
       </View>
     </Screen>
   )
 }
 
-interface BigToggleProps {
-  toggleColor: "toggles1" | "toggles2" | "toggles3" | "toggles4" | "toggles5" | "toggles6"
-}
-
-const BigToggle = ({ toggleColor }: BigToggleProps) => {
-  const { themed } = useAppTheme()
+const BigToggle = ({ toggleColor }: { toggleColor: (typeof toggleColors)[number] }) => {
+  const { themed, theme } = useAppTheme()
 
   const [isTogglePressed, setIsTogglePressed] = useState(false)
 
@@ -63,7 +65,10 @@ const BigToggle = ({ toggleColor }: BigToggleProps) => {
       value={isTogglePressed}
       onPress={onTogglePress}
       inputOuterStyle={themed($bigToggleOuter)}
-      inputInnerStyle={themed($bigToggleInner(toggleColor))}
+      inputInnerStyle={{
+        ...themed($bigToggleInner),
+        backgroundColor: theme.colors.palette[toggleColor],
+      }}
       inputDetailStyle={$bigToggleKnob}
     />
   )
@@ -94,19 +99,13 @@ const $bigToggleOuter: ThemedStyle<ViewStyle> = ({ colors }) => ({
   backgroundColor: colors.palette.angry100,
 })
 
-// ThemedStyle function that applies the toggle color as the "on" backgroundColor
-const $bigToggleInner = (
-  toggleColor: "toggles1" | "toggles2" | "toggles3" | "toggles4" | "toggles5" | "toggles6",
-): ThemedStyle<ViewStyle> => {
-  return ({ colors }) => ({
-    // The movement formula uses: [offsetLeft, knobWidth + offsetRight]
-    // This doesn't scale proportionally, so start padding needs to be larger
-    // to achieve equal visual spacing. Original: 4/4, scaled: 16/8 works visually
-    paddingStart: 16,
-    paddingEnd: 8,
-    backgroundColor: colors.palette[toggleColor],
-  })
-}
+const $bigToggleInner: ThemedStyle<ViewStyle> = () => ({
+  // The movement formula uses: [offsetLeft, knobWidth + offsetRight]
+  // This doesn't scale proportionally, so start padding needs to be larger
+  // to achieve equal visual spacing. Original: 4/4, scaled: 16/8 works visually
+  paddingStart: 16,
+  paddingEnd: 8,
+})
 
 const $bigToggleKnob: SwitchToggleProps["inputDetailStyle"] = {
   width: 75, // Scaled proportionally (24/32 * 100), doubled
