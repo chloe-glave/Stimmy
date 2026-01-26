@@ -247,6 +247,11 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
             text="Go to Welcome"
             style={themed($button)}
           />
+          <Button
+            onPress={() => navigation.navigate("Toggles")}
+            text="Go to Toggles"
+            style={themed($button)}
+          />
 
           <SectionListWithKeyboardAwareScrollView
             ref={listRef}
