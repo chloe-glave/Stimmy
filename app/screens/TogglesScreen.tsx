@@ -18,12 +18,6 @@ export const TogglesScreen: FC<TogglesScreenProps> = () => {
   const navigation = useNavigation<AppStackScreenProps<"Toggles">["navigation"]>()
   const { themed } = useAppTheme()
 
-  const [isTogglePressed, setIsTogglePressed] = useState(false)
-
-  const onTogglePress = useCallback(() => {
-    setIsTogglePressed(!isTogglePressed)
-  }, [isTogglePressed])
-
   return (
     <Screen
       style={$root}
@@ -38,18 +32,34 @@ export const TogglesScreen: FC<TogglesScreenProps> = () => {
       />
 
       <View style={themed($centerContent)}>
-        <Switch
-          value={isTogglePressed}
-          onPress={onTogglePress}
-          inputOuterStyle={themed($bigToggleOuter)}
-          inputInnerStyle={themed($toggleInner)}
-          inputDetailStyle={$toggleKnob}
-        />
-        <Switch value={isTogglePressed} onPress={onTogglePress} />
-        <Switch value={isTogglePressed} onPress={onTogglePress} />
-        <Switch value={isTogglePressed} onPress={onTogglePress} />
+        <BigToggle />
+        <BigToggle />
+        <BigToggle />
+        <BigToggle />
+        <BigToggle />
+        <BigToggle />
       </View>
     </Screen>
+  )
+}
+
+const BigToggle = () => {
+  const { themed } = useAppTheme()
+
+  const [isTogglePressed, setIsTogglePressed] = useState(false)
+
+  const onTogglePress = useCallback(() => {
+    setIsTogglePressed(!isTogglePressed)
+  }, [isTogglePressed])
+
+  return (
+    <Switch
+      value={isTogglePressed}
+      onPress={onTogglePress}
+      inputOuterStyle={themed($bigToggleOuter)}
+      inputInnerStyle={themed($toggleInner)}
+      inputDetailStyle={$toggleKnob}
+    />
   )
 }
 
