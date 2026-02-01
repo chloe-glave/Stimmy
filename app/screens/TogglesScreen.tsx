@@ -1,6 +1,7 @@
 import { FC, useCallback, useState } from "react"
 import { ViewStyle } from "react-native"
 import { View } from "react-native"
+import * as Haptics from "expo-haptics"
 import { useNavigation } from "@react-navigation/native"
 
 import { Button } from "@/components/Button"
@@ -24,7 +25,6 @@ const toggleColors = [
   "toggles6",
 ] as const
 
-// todo: make them haptic
 export const TogglesScreen: FC<TogglesScreenProps> = () => {
   const navigation = useNavigation<AppStackScreenProps<"Toggles">["navigation"]>()
   const { themed } = useAppTheme()
@@ -57,6 +57,9 @@ const BigToggle = ({ toggleColor }: { toggleColor: (typeof toggleColors)[number]
   const [isTogglePressed, setIsTogglePressed] = useState(false)
 
   const onTogglePress = useCallback(() => {
+    Haptics.performAndroidHapticsAsync(
+      isTogglePressed ? Haptics.AndroidHaptics.Toggle_Off : Haptics.AndroidHaptics.Toggle_On,
+    )
     setIsTogglePressed(!isTogglePressed)
   }, [isTogglePressed])
 
