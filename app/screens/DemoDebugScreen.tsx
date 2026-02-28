@@ -14,9 +14,8 @@ import { Button } from "@/components/Button"
 import { ListItem } from "@/components/ListItem"
 import { Screen } from "@/components/Screen"
 import { Text } from "@/components/Text"
-import { useAuth } from "@/context/AuthContext"
 import { isRTL } from "@/i18n"
-import { DemoTabScreenProps } from "@/navigators/navigationTypes"
+import { AppStackScreenProps } from "@/navigators/navigationTypes"
 import { useAppTheme } from "@/theme/context"
 import { $styles } from "@/theme/styles"
 import type { ThemedStyle } from "@/theme/types"
@@ -31,11 +30,10 @@ function openLinkInBrowser(url: string) {
 
 const usingHermes = typeof HermesInternal === "object" && HermesInternal !== null
 
-export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function DemoDebugScreen(
+export const DemoDebugScreen: FC<AppStackScreenProps<"DemoDebug">> = function DemoDebugScreen(
   _props,
 ) {
   const { setThemeContextOverride, themeContext, themed } = useAppTheme()
-  const { logout } = useAuth()
 
   // @ts-expect-error
   const usingFabric = global.nativeFabricUIManager != null
@@ -72,11 +70,7 @@ export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function Dem
   }, [setThemeContextOverride])
 
   return (
-    <Screen
-      preset="scroll"
-      safeAreaEdges={["top"]}
-      contentContainerStyle={[$styles.container, themed($container)]}
-    >
+    <Screen preset="scroll" contentContainerStyle={[$styles.container, themed($container)]}>
       <Text
         style={themed($reportBugsLink)}
         tx="demoDebugScreen:reportBugs"
@@ -144,9 +138,6 @@ export const DemoDebugScreen: FC<DemoTabScreenProps<"DemoDebug">> = function Dem
       <View style={themed($buttonContainer)}>
         <Button style={themed($button)} tx="demoDebugScreen:reactotron" onPress={demoReactotron} />
         <Text style={themed($hint)} tx={`demoDebugScreen:${Platform.OS}ReactotronHint` as const} />
-      </View>
-      <View style={themed($buttonContainer)}>
-        <Button style={themed($button)} tx="common:logOut" onPress={logout} />
       </View>
     </Screen>
   )
