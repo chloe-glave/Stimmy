@@ -2,9 +2,7 @@ import { FC, useCallback, useState } from "react"
 import { ViewStyle } from "react-native"
 import { View } from "react-native"
 import * as Haptics from "expo-haptics"
-import { useNavigation } from "@react-navigation/native"
 
-import { Button } from "@/components/Button"
 import { Screen } from "@/components/Screen"
 import { Switch, type SwitchToggleProps } from "@/components/Toggle/Switch"
 import type { AppStackScreenProps } from "@/navigators/navigationTypes"
@@ -26,7 +24,6 @@ const toggleColors = [
 ] as const
 
 export const TogglesScreen: FC<TogglesScreenProps> = () => {
-  const navigation = useNavigation<AppStackScreenProps<"Toggles">["navigation"]>()
   const { themed } = useAppTheme()
 
   return (
@@ -34,14 +31,8 @@ export const TogglesScreen: FC<TogglesScreenProps> = () => {
       style={$root}
       preset="scroll"
       contentContainerStyle={$styles.flex1}
-      safeAreaEdges={["top", "bottom", "left", "right"]}
+      safeAreaEdges={["bottom", "left", "right"]}
     >
-      <Button
-        onPress={() => navigation.navigate("Demo", { screen: "DemoShowroom", params: {} })}
-        text="Go to DemoShowroom"
-        style={themed($button)}
-      />
-
       <View style={themed($centerContent)}>
         {toggleColors.map((toggleColor) => (
           <BigToggle key={toggleColor} toggleColor={toggleColor} />
@@ -86,11 +77,6 @@ const $centerContent: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   justifyContent: "center",
   flex: 1,
   gap: spacing.md,
-})
-
-const $button: ThemedStyle<ViewStyle> = ({ spacing, colors }) => ({
-  marginHorizontal: spacing.lg,
-  backgroundColor: colors.tint,
 })
 
 // Styling to create 4x the size of the default toggle
