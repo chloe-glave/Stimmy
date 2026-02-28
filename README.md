@@ -9,6 +9,22 @@ This is the boilerplate that [Infinite Red](https://infinite.red) uses as a way 
 
 ## Getting Started
 
+### Chloe's notes
+
+In the project root directory...
+
+#### Running on simulator
+- Run `yarn android`
+
+#### Running on physical android
+- Connect phone via USB
+- Ensure phone is registered with `adb devices`, if it's `unauthorized` need to approve the on-device prompt to give connection permissions
+- Run `adb reverse tcp:8081 tcp:8081` to connect the port
+- Run `npx expo prebuild` to generate android project files
+- Run `npx expo run:android` to build the app; scan the generated QR code with phone camera. App should launch and will hot-reload while connected to USB 🎉
+
+### Boilerplate notes
+
 ```bash
 npm install --legacy-peer-deps
 npm run start

@@ -48,9 +48,7 @@ const BigToggle = ({ toggleColor }: { toggleColor: (typeof toggleColors)[number]
   const [isTogglePressed, setIsTogglePressed] = useState(false)
 
   const onTogglePress = useCallback(() => {
-    Haptics.performAndroidHapticsAsync(
-      isTogglePressed ? Haptics.AndroidHaptics.Toggle_Off : Haptics.AndroidHaptics.Toggle_On,
-    )
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
     setIsTogglePressed(!isTogglePressed)
   }, [isTogglePressed])
 
