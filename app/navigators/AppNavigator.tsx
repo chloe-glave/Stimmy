@@ -4,13 +4,13 @@ import { NavigationContainer } from "@react-navigation/native"
 
 import Config from "@/config"
 import { isRTL } from "@/i18n"
+import { DemoDebugScreen } from "@/screens/DemoDebugScreen"
+import { DemoShowroomScreen } from "@/screens/DemoShowroomScreen/DemoShowroomScreen"
 import { ErrorBoundary } from "@/screens/ErrorScreen/ErrorBoundary"
 import { TogglesScreen } from "@/screens/TogglesScreen"
-import { WelcomeScreen } from "@/screens/WelcomeScreen"
 import { useAppTheme } from "@/theme/context"
 import type { ThemedStyle } from "@/theme/types"
 
-import { DemoNavigator } from "./DemoNavigator"
 import type { AppStackParamList, NavigationProps } from "./navigationTypes"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
@@ -48,8 +48,8 @@ const DrawerStack = () => {
       initialRouteName="Toggles"
     >
       <Drawer.Screen name="Toggles" component={TogglesScreen} />
-      <Drawer.Screen name="Demo" component={DemoNavigator} />
-      <Drawer.Screen name="Welcome" component={WelcomeScreen} />
+      <Drawer.Screen name="DemoShowroom" component={DemoShowroomScreen} />
+      <Drawer.Screen name="DemoDebug" component={DemoDebugScreen} />
     </Drawer.Navigator>
   )
 }
