@@ -12,13 +12,12 @@ import {
 import { Link, RouteProp, useRoute } from "@react-navigation/native"
 import { Drawer } from "react-native-drawer-layout"
 
-import { Button } from "@/components/Button"
 import { ListItem } from "@/components/ListItem"
 import { Screen } from "@/components/Screen"
 import { Text } from "@/components/Text"
 import { TxKeyPath, isRTL } from "@/i18n"
 import { translate } from "@/i18n/translate"
-import { DemoTabParamList, DemoTabScreenProps } from "@/navigators/navigationTypes"
+import type { AppStackParamList, AppStackScreenProps } from "@/navigators/navigationTypes"
 import { useAppTheme } from "@/theme/context"
 import { $styles } from "@/theme/styles"
 import type { ThemedStyle } from "@/theme/types"
@@ -116,14 +115,13 @@ const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) 
 const ShowroomListItem = Platform.select({ web: WebListItem, default: NativeListItem })
 const isAndroid = Platform.OS === "android"
 
-export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
+export const DemoShowroomScreen: FC<AppStackScreenProps<"DemoShowroom">> =
   function DemoShowroomScreen(_props) {
-    const { navigation } = _props
     const [open, setOpen] = useState(false)
     const timeout = useRef<ReturnType<typeof setTimeout>>(null)
     const listRef = useRef<SectionList>(null)
     const menuRef = useRef<FlatList<DemoListItem["item"]>>(null)
-    const route = useRoute<RouteProp<DemoTabParamList, "DemoShowroom">>()
+    const route = useRoute<RouteProp<AppStackParamList, "DemoShowroom">>()
     const params = route.params
 
     const { themed, theme } = useAppTheme()
@@ -236,22 +234,10 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
       >
         <Screen
           preset="fixed"
-          safeAreaEdges={["top"]}
           contentContainerStyle={$styles.flex1}
           {...(isAndroid ? { KeyboardAvoidingViewProps: { behavior: undefined } } : {})}
         >
           <DrawerIconButton onPress={toggleDrawer} />
-
-          <Button
-            onPress={() => navigation.navigate("Welcome")}
-            text="Go to Welcome"
-            style={themed($button)}
-          />
-          <Button
-            onPress={() => navigation.navigate("Toggles")}
-            text="Go to Toggles"
-            style={themed($button)}
-          />
 
           <SectionListWithKeyboardAwareScrollView
             ref={listRef}
@@ -337,9 +323,4 @@ const $demoItemDescription: ThemedStyle<TextStyle> = ({ spacing }) => ({
 
 const $demoUseCasesSpacer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   paddingBottom: spacing.xxl,
-})
-
-const $button: ThemedStyle<ViewStyle> = ({ spacing, colors }) => ({
-  marginHorizontal: spacing.lg,
-  backgroundColor: colors.tint,
 })
